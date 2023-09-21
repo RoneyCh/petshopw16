@@ -9,7 +9,7 @@ Antes de começar, você deve ter o seguinte instalado:
 - PHP>=7
 - Composer
 
-## Como rodar o projeto
+## Instruções do projeto
 
 1. **Faça o pull do projeto**
 2. **Instalar dependências**
@@ -30,7 +30,8 @@ Antes de começar, você deve ter o seguinte instalado:
     ```sql
     mysql -u seu_usuario -p petshopw16 < petshopw16.sql
 
-5. **Configurar conexão**
+5. **Configurar conexão:**
+   
     Abra o arquivo application/config/database.php no seu projeto CodeIgniter e atualize as informações de conexão com o banco de dados. 
     ```php
     $db['default'] = array(
@@ -41,11 +42,19 @@ Antes de começar, você deve ter o seguinte instalado:
         // ...
     );
 
-6. **JWT**
+6. **JWT:**
+   
     Para fins de exemplo e facilidade na execução do projeto, a chave secreta JWT foi incluída no código. No entanto, é altamente recomendável que você siga práticas de segurança adequadas e armazene a chave secreta JWT de forma segura, em um arquivo de ambiente (.env).
 
-7. **Login na aplicação** 
+7. **Como rodar**
+    ```
+    php -S localhost:8000
+
+8. **Login na aplicação:**
+     
     Para realizar o primeiro login como administrado utilizar as credenciais:
-    *email: admin@gmai.com*
+   
+    *email: admin@gmail.com*
+   
     *senha: 1234567*
 
