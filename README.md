@@ -49,6 +49,8 @@ Antes de começar, você deve ter o seguinte instalado:
 9. **Login na aplicação:**
      
     Para realizar o primeiro login como administrado utilizar as credenciais:
-    *email: admin@gmai.com*
+   
+    *email: admin@gmail.com*
+   
     *senha: 1234567*
 
