@@ -121,7 +121,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854" integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg==" data-cf-beacon='{"rayId":"809ccbc77e2900fd","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2023.8.0","si":100}' crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
@@ -154,6 +154,13 @@
                 url: '<?= $this->base_url . "Usuario/login"?>',
                 data: { des_email: email, des_senha: senha },
                 success: function(response) {
+                    if(response.error) {
+                        Swal.fire('Erro', response.error, 'error');
+                        return;
+                    } else if(response.warning) {
+                        Swal.fire('Aviso', response.warning, 'warning');
+                        return;
+                    }
                     window.location.href = 'Home';
                 },
                 error: function() {

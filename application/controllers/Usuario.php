@@ -25,48 +25,53 @@ class Usuario extends BaseController
     public function login()
     {
         try {
+            $response = array();
             $des_email_usr = isset($_POST['des_email'])  && !empty($_POST['des_email']) ? $_POST['des_email'] : null;
             $des_senha_usr = isset($_POST['des_senha'])  && !empty($_POST['des_senha']) ? $_POST['des_senha'] : null;
             $cod_usuario_usr = isset($_POST['cod_usuario_usr'])  && !empty($_POST['cod_usuario_usr']) ? $_POST['cod_usuario_usr'] : null;
 
             if (!$des_email_usr || !$des_senha_usr) {
-                throw new Exception("E-mail e senha são obrigatórios");
-            }
+                $response['warning'] = "E-mail e senha são obrigatórios";
+            } else {
             $usuario = $this->usuario->buscarUsuarioPorEmail($des_email_usr, $cod_usuario_usr);
             if (!$usuario) {
-                throw new Exception("Usuário não encontrado");
-            }
+                $response['warning'] = "Usuário não encontrado";
+            } else {
 
             $compara_senha = password_verify($des_senha_usr, $usuario->des_senha_usr);
             if (!$compara_senha) {
-                throw new Exception("Senha incorreta");
-            }
+                $response['warning'] = "Senha incorreta";
+            } else {
+                $token = $this->gerarToken($usuario);
+                $des_email_usr = $usuario->des_email_usr;
+                $cod_usuario_usr = $usuario->cod_usuario_usr;
+                $des_usuario_usr = $usuario->des_usuario_usr;
+                $des_cargo_usr = $usuario->des_cargo_usr;
+                $dadosUsuario = array(
+                    'des_email_usr' => $des_email_usr,
+                    'cod_usuario_usr' => $cod_usuario_usr,
+                    'des_usuario_usr' => $des_usuario_usr,
+                    'des_cargo_usr' => $des_cargo_usr
+                );
 
-            $token = $this->gerarToken($usuario);
-            $des_email_usr = $usuario->des_email_usr;
-            $cod_usuario_usr = $usuario->cod_usuario_usr;
-            $des_usuario_usr = $usuario->des_usuario_usr;
-            $des_cargo_usr = $usuario->des_cargo_usr;
-            $dadosUsuario = array(
-                'des_email_usr' => $des_email_usr,
-                'cod_usuario_usr' => $cod_usuario_usr,
-                'des_usuario_usr' => $des_usuario_usr,
-                'des_cargo_usr' => $des_cargo_usr
-            );
+                setcookie(
+                    $name = "token",
+                    $value = $token,
+                    $options = time() + 86400,
+                    $path = "/",
+                    $domain = "",
+                    $secure = true,
+                    $httponly = true
+                );
 
-            setcookie(
-                $name = "token",
-                $value = $token,
-                $options = time() + 86400,
-                $path = "/",
-                $domain = "",
-                $secure = true,
-                $httponly = true
-            );
+                $_SESSION['usuario'] = $dadosUsuario;
 
-            $_SESSION['usuario'] = $dadosUsuario;
-
-            header('Location: /Home');
+                //header('Location: /Home');
+        } 
+    }
+    }
+            header('Content-Type: application/json');
+            echo json_encode($response);
         } catch (Exception $e) {
             header("HTTP/1.1 400 Bad Request");
             echo json_encode(array("error" => $e->getMessage()));
@@ -119,8 +124,7 @@ class Usuario extends BaseController
         $token = isset($_COOKIE['token']) ? $_COOKIE['token'] : null;
         $decoded = $token !== null ? $this->authenticationmiddleware->verificarToken($token) : false;
         if (!$decoded) {
-            header("HTTP/1.1 401 Unauthorized");
-            echo json_encode(array("error" => "Não autorizado"));
+            $this->load->view('error_view');
             return;
         }
         $data['dados'] = $this->usuario->listUsuarios();

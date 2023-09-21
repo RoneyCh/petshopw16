@@ -77,16 +77,24 @@
                     data: formData,
                     success: function(response) {
                         if (response.success) {
-                    Swal.fire('Successo', response.success, 'success');
-                    $('body').removeClass('modal-open');
-                    $('.modal-backdrop').remove();
-                    loadView('Usuario/listUsuarios');
-                } else if (response.error) {
-                    Swal.fire('Erro', response.error, 'error');
-                } else if(response.warning) {
-                    Swal.fire('Aviso', response.warning, 'warning');
-                    
-                }
+                            Swal.fire('Successo', response.success, 'success').then((result) => {
+                                if (result.isConfirmed) {
+                                    <?php
+                                    if (!isset($_SESSION['usuario'])) {
+                                        echo 'window.location.href = "' . $this->base_url . '";';
+                                    }
+                                    ?>
+                                }
+                            });
+                            $('body').removeClass('modal-open');
+                            $('.modal-backdrop').remove();
+                            loadView('Usuario/listUsuarios');
+                        } else if (response.error) {
+                            Swal.fire('Erro', response.error, 'error');
+                        } else if(response.warning) {
+                            Swal.fire('Aviso', response.warning, 'warning');
+                            
+                        }
                 },
                     error: function(xhr, status, error) {
                         Swal.fire('Error', xhr.responseText, 'error');
