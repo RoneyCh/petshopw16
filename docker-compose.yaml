@@ -7,7 +7,6 @@ services:
       args:
         WWWGROUP: '${WWWGROUP:-1000}'
     image: app
-    command: sh -c "composer install"
     environment:
       WWWUSER: '${WWWUSER:-1000}'
     ports:
@@ -19,6 +18,11 @@ services:
       - app-network
     depends_on:
       - mysql
+  composer:
+    image: composer/composer
+    command: install
+    volumes: 
+      - .:/app
   mysql:
     image: 'mysql:5.6'
     environment:
