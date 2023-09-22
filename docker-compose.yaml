@@ -7,6 +7,7 @@ services:
       args:
         WWWGROUP: '${WWWGROUP:-1000}'
     image: app
+    command: sh -c "composer install"
     environment:
       WWWUSER: '${WWWUSER:-1000}'
     ports:
