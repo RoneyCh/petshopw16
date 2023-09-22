@@ -1,10 +1,10 @@
 # Projeto PetShop
     Projeto foi feito utilizando CodeIgniter 2.2.6
 
-## Pré-Requisitos
+## Recomendações
 
-    Para rodar o projeto é necessário ter o Docker instalado.
-    É importante que a porta 80 e 3306 esteja livre
+    Para rodar o projeto é recomendado ter o Docker instalado.
+    É importante que a porta 80 e 3306 esteja livre para não haver conflitos
 
 ## Instruções do projeto
 
