@@ -4,6 +4,7 @@
 ## Recomendações
 
     Para rodar o projeto é recomendado ter o Docker instalado.
+    Instalar as dependencias com composer install
     É importante que a porta 80 e 3306 esteja livre para não haver conflitos
 
 ## Instruções do projeto
