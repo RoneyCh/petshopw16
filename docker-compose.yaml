@@ -1,0 +1,44 @@
+version: "3"
+services:
+  app:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${WWWGROUP:-1000}'
+    image: app
+    environment:
+      WWWUSER: '${WWWUSER:-1000}'
+    ports:
+      - "80:80"
+      - "5093:5093"
+    volumes:
+      - '.:/var/www/html'
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+  mysql:
+    image: 'mysql:5.6'
+    environment:
+      MYSQL_DATABASE: 'petshopw16'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'root2'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'toor'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'toor'
+    ports:
+      - '3306:3306'
+    volumes:
+      - 'my-db:/var/lib/mysql'
+      - './docker/dumps:/dumps'
+    networks:
+      - app-network
+networks:
+  app-network:
+
+
+volumes:
+  my-db:
+    driver: local

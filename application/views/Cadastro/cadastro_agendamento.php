@@ -41,7 +41,7 @@
             <div class="mb-3">
                 <?php $agendamento = isset($dados->dta_agendamento_agd) ? $dados->dta_agendamento_agd : ""; ?>
                 <label for="data_agendamento">Data de Agendamento</label>
-                <input type="text" id="data_agendamento" name="data_agendamento" value="<?php echo $agendamento; ?>">
+                <input type="text" id="data_agendamento" name="data_agendamento" autocomplete="off" value="<?php echo $agendamento; ?>">
             </div>
             
             <button type="button" id="submitButton" class="btn btn-primary"><?= (!empty($dados)) ? "Editar" : "Cadastrar"; ?></button>

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ ! -z "$WWWUSER" ]; then
+    usermod -u $WWWUSER clarotem
+fi
+ exec /usr/bin/supervisord -c /etc/supervisord/conf.d/supervisord.conf
+if [ $# -gt 0 ]; then
+    exec gosu $WWWUSER "$@"
+fi
