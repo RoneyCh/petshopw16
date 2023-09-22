@@ -3,58 +3,42 @@
 
 ## Pré-Requisitos
 
-Antes de começar, você deve ter o seguinte instalado:
-
-- Servidor MySQL
-- PHP>=7
-- Composer
+    Para rodar o projeto é necessário ter o Docker instalado.
+    É importante que a porta 80 e 3306 esteja livre
 
 ## Instruções do projeto
 
-1. **Faça o pull do projeto**
-2. **Instalar dependências**
-    Rodar o comando: 
+1. **Clonar o projeto**
+2. **Inicie o Docker:**
+
+    Na raiz do projeto executar o comando: 
     ```code
-    composer install
+    docker-compose up
 
-3. **Crie um Banco de Dados:**
+3. **Executar o script para criação das tabelas:**
 
-   Você precisará criar um banco de dados vazio para o projeto. Você pode fazer isso usando uma ferramenta de gerenciamento de banco de dados, como o phpMyAdmin, ou executando o seguinte comando SQL:
+    No diretório do projeto, executar o script que se encontra no arquivo petshopw16.sql
 
-   ```sql
-   CREATE DATABASE petshopw16;
-
-4. **Importe o schema:**
-
-    No diretório do projeto, importar o arquivo petshopw16.sql.
-    ```sql
-    mysql -u seu_usuario -p petshopw16 < petshopw16.sql
-
-5. **Configurar conexão:**
+4. **JWT:**
    
-    Abra o arquivo application/config/database.php no seu projeto CodeIgniter e atualize as informações de conexão com o banco de dados. 
-    ```php
-    $db['default'] = array(
-        'hostname' => 'localhost',
-        'username' => 'seu_usuario',
-        'password' => 'sua_senha',
-        'database' => 'nomedobanco',
-        // ...
-    );
+    Para fins de exemplo e facilidade na execução do projeto, a chave secreta JWT foi incluída no código. No entanto, é altamente recomendável que siga práticas de segurança adequadas e armazene a chave secreta JWT de forma segura, em um arquivo de ambiente (.env).
 
-6. **JWT:**
-   
-    Para fins de exemplo e facilidade na execução do projeto, a chave secreta JWT foi incluída no código. No entanto, é altamente recomendável que você siga práticas de segurança adequadas e armazene a chave secreta JWT de forma segura, em um arquivo de ambiente (.env).
-
-7. **Como rodar**
+5. **Como Acessar**
     ```
-    php -S localhost:8000
+    Acessar a aplicação através da url: localhost
 
-8. **Login na aplicação:**
-     
-    Para realizar o primeiro login como administrado utilizar as credenciais:
+6. **Login na aplicação:**
+    
+    Para realizar o primeiro login como administrador utilizar as credenciais:
    
     *email: admin@gmail.com*
    
     *senha: 1234567*
+
+
+
+
+
+
+
 
